@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toRFeederPath1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toRFeederPath2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toRFeederPath3"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toRFeederPath4"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
