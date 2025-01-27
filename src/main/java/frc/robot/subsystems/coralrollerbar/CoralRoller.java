@@ -26,8 +26,8 @@ public class CoralRoller extends SubsystemBase {
     io.updateInputs(inputs);
   }
 
-  public void setVelocity(double v) {
-    this.velocity = v;
+  public void setVoltage(double v) {
+    io.setCoralRollerVoltage(v);
   }
 
   public double getVelocity() {

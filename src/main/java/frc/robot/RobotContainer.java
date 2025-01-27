@@ -154,10 +154,10 @@ public class RobotContainer {
                 .ignoringDisable(true));
     controller
         .leftBumper()
-        .onTrue(Commands.runOnce(() -> coralRoller.setVelocity(0.9), coralRoller));
+        .onTrue(Commands.runOnce(() -> coralRoller.setVoltage(6), coralRoller));
     controller
         .rightBumper()
-        .onTrue(Commands.runOnce(() -> coralRoller.setVelocity(-0.9), coralRoller));
+        .onTrue(Commands.runOnce(() -> coralRoller.setVoltage(-6), coralRoller));
   }
 
   /**
