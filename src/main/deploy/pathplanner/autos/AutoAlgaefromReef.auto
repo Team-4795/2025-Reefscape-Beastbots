@@ -7,25 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "toLFeederPath1"
+            "pathName": "toTakingAlgaePath1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "toLFeederPath2"
+            "pathName": "toTakingAlgaePath2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LFeederPath3"
+            "pathName": "toTakingAlgaePath3"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "toLFeederPath4"
+            "pathName": "toTakingAlgaePath4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toTakingAlgaePath5"
           }
         }
       ]
