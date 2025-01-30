@@ -125,11 +125,10 @@ public class RobotContainer {
             () -> -controller.getLeftX(),
             () -> -controller.getRightX()));
 
-    CommandGenericHID m_driverController;
     Climb climb = Climb.init(new ClimbIOSim());
-        m_driverController.povUp().whileTrue(Commands.startEnd(climb::up, climb::stop, climb));
-        m_driverController.povDown().whileTrue(Commands.startEnd(climb::down, climb::stop, climb));
-        m_driverController.x().onTrue(Commands.sequence(
+        controller.povUp().whileTrue(Commands.startEnd(climb::up, climb::stop, climb));
+        controller.povDown().whileTrue(Commands.startEnd(climb::down, climb::stop, climb));
+        controller.x().onTrue(Commands.sequence(
         Commands.startEnd(climb::up, climb::stop, climb).withTimeout(4.0),
         Commands.startEnd(climb::down, climb::stop, climb).withTimeout(4.0)
     ));
