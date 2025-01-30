@@ -16,6 +16,18 @@ public class Climb extends SubsystemBase {
     io.updateInputs(inputs);
   }
 
+  public void up(){
+    io.setClimbVoltage(12);
+  }
+
+  public void down(){
+    io.setClimbVoltage(-12);
+  }
+
+  public void stop(){
+    io.setClimbVoltage(0);
+  }
+
   public static Climb getInstance() {
     return instance;
   }
