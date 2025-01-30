@@ -20,14 +20,15 @@ public class Pivot extends SubsystemBase {
     if (instance == null) {
       instance = new Pivot(something);
     }
+    return instance;
   }
 
   public static void setVoltage(double voltage) {
     io.setVoltage(voltage);
   }
-  
+
   @Override
-  public void periodic(){
+  public void periodic() {
     io.updateInputs(inputs);
   }
 }

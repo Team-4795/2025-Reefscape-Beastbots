@@ -32,9 +32,6 @@ import frc.robot.subsystems.drive.ModuleIOSpark;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotIOReal;
 import frc.robot.subsystems.pivot.PivotIOSim;
-
-import java.util.ResourceBundle.Control;
-
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -123,8 +120,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    controller.leftTrigger().whileTrue(Commands.run(() -> Pivot.setVoltage(controller.getLeftTriggerAxis()*6)));
-    controller.rightTrigger().whileTrue(Commands.run(() -> Pivot.setVoltage(controller.getRightTriggerAxis()*-6)));
+    controller
+        .leftTrigger()
+        .whileTrue(Commands.run(() -> Pivot.setVoltage(controller.getLeftTriggerAxis() * 6)));
+    controller
+        .rightTrigger()
+        .whileTrue(Commands.run(() -> Pivot.setVoltage(controller.getRightTriggerAxis() * -6)));
 
     // Default command, normal field-relative drive
     drive.setDefaultCommand(
