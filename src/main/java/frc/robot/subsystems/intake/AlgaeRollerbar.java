@@ -1,10 +1,7 @@
 package frc.robot.subsystems.intake;
 
-import org.littletonrobotics.junction.Logger;
-
-import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.littletonrobotics.junction.Logger;
 
 public class AlgaeRollerbar extends SubsystemBase {
   // createvariable such as Io look at intake.java on mainbot adapt for your rollerbar, periodic
@@ -34,26 +31,14 @@ public class AlgaeRollerbar extends SubsystemBase {
 
   public void setIntakeVoltage(double voltage) {
     intakeVoltage = voltage;
+    io.setVoltage(voltage);
   }
-
-  public Command intake() {
-    return startEnd(() -> setIntakeVoltage(AlgaeRollerbarConstants.intake), () -> setIntakeVoltage(0));
-    
-  }
-  public Command intakeSlow() {
-    return startEnd(() -> setIntakeVoltage(AlgaeRollerbarConstants.slow), () -> setIntakeVoltage(0));
-  }
-
-  public Command reverse() {
-    return startEnd(() -> setIntakeVoltage(AlgaeRollerbarConstants.reverse), () -> setIntakeVoltage(0));
-  } 
 
   @Override
-    public void periodic(){
-        io.updateInputs(inputs);
-        Logger.processInputs("Intake", inputs);
-        io.setVoltage(intakeVoltage);
-        Logger.recordOutput("Intake/Intake speed", intakeVoltage);
-
-    }
+  public void periodic() {
+    io.updateInputs(inputs);
+    Logger.processInputs("AlgaeRollerbar", inputs);
+    io.setVoltage(intakeVoltage);
+    Logger.recordOutput("AlgaeRollerbar/AlgaeRollerbar voltage", intakeVoltage);
+  }
 }

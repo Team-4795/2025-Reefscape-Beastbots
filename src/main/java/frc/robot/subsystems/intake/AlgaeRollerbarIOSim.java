@@ -8,7 +8,7 @@ public class AlgaeRollerbarIOSim implements AlgaeRollerbarIO {
   private double appliedVolts;
   private final DCMotorSim intakeMotor =
       new DCMotorSim(
-          LinearSystemId.createDCMotorSystem(DCMotor.getNEO(1), 0.5, 0), DCMotor.getNEO(1), 1);
+          LinearSystemId.createDCMotorSystem(DCMotor.getNEO(1), 0.5, 1), DCMotor.getNEO(1), 0, 0);
 
   @Override
   public void setVoltage(double voltage) {

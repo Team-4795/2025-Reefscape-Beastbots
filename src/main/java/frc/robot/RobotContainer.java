@@ -29,6 +29,9 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
+import frc.robot.subsystems.intake.AlgaeRollerbar;
+import frc.robot.subsystems.intake.AlgaeRollerbarIOReal;
+import frc.robot.subsystems.intake.AlgaeRollerbarIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -40,7 +43,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-
+  private final AlgaeRollerbar algaeRollerbar;
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
 
@@ -59,6 +62,8 @@ public class RobotContainer {
                 new ModuleIOSpark(1),
                 new ModuleIOSpark(2),
                 new ModuleIOSpark(3));
+
+        algaeRollerbar = AlgaeRollerbar.initialize(new AlgaeRollerbarIOReal());
         break;
 
       case SIM:
@@ -70,6 +75,7 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim());
+        algaeRollerbar = AlgaeRollerbar.initialize(new AlgaeRollerbarIOSim());
         break;
 
       default:
@@ -81,6 +87,8 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
+        algaeRollerbar = AlgaeRollerbar.initialize(new AlgaeRollerbarIOSim());
+
         break;
     }
 
@@ -145,6 +153,9 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
+
+    controller.leftBumper().onTrue(Commands.runOnce(() -> algaeRollerbar.setIntakeVoltage(12)));
+    controller.rightBumper().onTrue(Commands.runOnce(() -> algaeRollerbar.setIntakeVoltage(-12)));
   }
 
   /**
