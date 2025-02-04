@@ -1,11 +1,13 @@
 package frc.robot.subsystems.pivot;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import org.littletonrobotics.junction.Logger;
 
 public class Pivot extends SubsystemBase {
   private PivotIOInputsAutoLogged inputs = new PivotIOInputsAutoLogged();
-  private static PivotIO io;
+  private PivotIO io;
   private static Pivot instance;
+  private double voltage = 0;
 
   public Pivot(PivotIO somethingElse) {
     this.io = somethingElse;
@@ -23,12 +25,15 @@ public class Pivot extends SubsystemBase {
     return instance;
   }
 
-  public void setVoltage(double voltage) {
-    io.setVoltage(voltage);
+  public void setVoltage(double volts) {
+    io.setVoltage(volts);
+    voltage = volts;
   }
 
   @Override
   public void periodic() {
     io.updateInputs(inputs);
+    Logger.processInputs("Pivot", inputs);
+    io.setVoltage(voltage);
   }
 }

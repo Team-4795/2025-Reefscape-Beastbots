@@ -122,10 +122,18 @@ public class RobotContainer {
   private void configureButtonBindings() {
     controller
         .leftTrigger()
-        .whileTrue(Commands.run(() -> pivot.setVoltage(controller.getLeftTriggerAxis() * 6)));
+        .whileTrue(
+            Commands.startEnd(
+                () -> pivot.setVoltage(controller.getLeftTriggerAxis() * 12),
+                () -> pivot.setVoltage(0),
+                pivot));
     controller
         .rightTrigger()
-        .whileTrue(Commands.run(() -> pivot.setVoltage(controller.getRightTriggerAxis() * -6)));
+        .whileTrue(
+            Commands.startEnd(
+                () -> pivot.setVoltage(controller.getRightTriggerAxis() * -12),
+                () -> pivot.setVoltage(0),
+                pivot));
 
     // Default command, normal field-relative drive
     drive.setDefaultCommand(

@@ -5,26 +5,28 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 public class PivotIOSim implements PivotIO {
+  private double aaaaa = 0;
   private SingleJointedArmSim pivotMotorSim =
       new SingleJointedArmSim(
-          LinearSystemId.createSingleJointedArmSystem(DCMotor.getNEO(1), 2, 1),
+          LinearSystemId.createSingleJointedArmSystem(DCMotor.getNEO(1), 1, 0.5),
           DCMotor.getNEO(1),
-          1,
-          1,
           0.5,
-          3,
+          1,
+          0,
+          10,
           false,
-          0.5,
           0);
 
   @Override
   public void setVoltage(double voltage) {
     pivotMotorSim.setInputVoltage(voltage);
+    aaaaa = voltage;
   }
 
   @Override
   public void updateInputs(PivotIOInputs inputs) {
-    inputs.voltage = pivotMotorSim.getInput(1);
+    pivotMotorSim.update(0.02);
+    inputs.voltage = aaaaa;
     inputs.velocity = pivotMotorSim.getVelocityRadPerSec();
     inputs.position = pivotMotorSim.getAngleRads();
   }
