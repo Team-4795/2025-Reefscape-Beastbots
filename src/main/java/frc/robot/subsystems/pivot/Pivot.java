@@ -23,7 +23,7 @@ public class Pivot extends SubsystemBase {
     return instance;
   }
 
-  public static void setVoltage(double voltage) {
+  public void setVoltage(double voltage) {
     io.setVoltage(voltage);
   }
 
