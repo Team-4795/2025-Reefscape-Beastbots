@@ -23,15 +23,15 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbar;
+import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbarIOReal;
+import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbarIOSim;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
-import frc.robot.subsystems.intake.AlgaeRollerbar;
-import frc.robot.subsystems.intake.AlgaeRollerbarIOReal;
-import frc.robot.subsystems.intake.AlgaeRollerbarIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -154,8 +154,12 @@ public class RobotContainer {
                     drive)
                 .ignoringDisable(true));
 
-    controller.leftBumper().onTrue(Commands.runOnce(() -> algaeRollerbar.setIntakeVoltage(12)));
-    controller.rightBumper().onTrue(Commands.runOnce(() -> algaeRollerbar.setIntakeVoltage(-12)));
+    controller
+        .leftBumper()
+        .onTrue(Commands.runOnce(() -> algaeRollerbar.setAlgaeRollerVoltage(12)));
+    controller
+        .rightBumper()
+        .onTrue(Commands.runOnce(() -> algaeRollerbar.setAlgaeRollerVoltage(-12)));
   }
 
   /**

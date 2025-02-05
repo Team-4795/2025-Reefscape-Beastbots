@@ -1,4 +1,4 @@
-package frc.robot.subsystems.intake;
+package frc.robot.subsystems.AlgaeRollerbar;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -16,15 +16,9 @@ public class AlgaeRollerbarIOReal implements AlgaeRollerbarIO {
   private double appliedVolts = 0;
 
   public AlgaeRollerbarIOReal() {
-    // set the idlemode to coast and then pass in current limit
-    // set idlemode?
-    // make a file called algaerollerbar constants for can id and type shit
-    // in sparkmax there is method that lets you configure the motor, use that to configure it
-    // clear stickyfaults on the motor
-    //
     config.idleMode(IdleMode.kCoast);
     config.smartCurrentLimit(AlgaeRollerbarConstants.STALLLIMIT);
-    intakeMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    intakeMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     intakeMotor.clearFaults();
   }
 
