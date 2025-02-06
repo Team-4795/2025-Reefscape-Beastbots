@@ -22,7 +22,7 @@ public class CoralRollerIOSim implements CoralRollerIO {
   @Override
   public void updateInputs(CoralRollerIOInputs inputs) {
     inputs.velocityRPM = motor.getAngularVelocityRPM();
-    inputs.voltage = appliedVolts;
+    inputs.voltage = motor.getInputVoltage();
     inputs.current = motor.getCurrentDrawAmps();
     motor.update(0.02);
   }
