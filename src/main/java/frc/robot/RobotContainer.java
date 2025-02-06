@@ -20,11 +20,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.climb.Climb;
+import frc.robot.subsystems.climb.ClimbConstants;
 import frc.robot.subsystems.climb.ClimbIOSim;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
@@ -126,12 +126,24 @@ public class RobotContainer {
             () -> -controller.getRightX()));
 
     Climb climb = Climb.init(new ClimbIOSim());
-        controller.povUp().whileTrue(Commands.startEnd(climb::up, climb::stop, climb));
-        controller.povDown().whileTrue(Commands.startEnd(climb::down, climb::stop, climb));
-        controller.x().onTrue(Commands.sequence(
-        Commands.startEnd(climb::up, climb::stop, climb).withTimeout(4.0),
-        Commands.startEnd(climb::down, climb::stop, climb).withTimeout(4.0)
-    ));
+    controller
+        .povUp()
+        .whileTrue(
+            Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb));
+    controller
+        .povDown()
+        .whileTrue(
+            Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb));
+    controller
+        .x()
+        .onTrue(
+            Commands.sequence(
+                Commands.startEnd(
+                        () -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb)
+                    .withTimeout(4.0),
+                Commands.startEnd(
+                        () -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb)
+                    .withTimeout(4.0)));
 
     // Lock to 0° when A button is held
     controller
@@ -163,15 +175,7 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-
-
-
-
-
   public Command getAutonomousCommand() {
     return autoChooser.get();
-
-    
   }
 }
-
