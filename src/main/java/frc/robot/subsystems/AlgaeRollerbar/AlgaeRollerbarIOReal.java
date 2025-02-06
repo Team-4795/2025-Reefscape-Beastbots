@@ -32,7 +32,7 @@ public class AlgaeRollerbarIOReal implements AlgaeRollerbarIO {
   public void updateInputs(AlgaeRollerbarIOInputs inputs) {
     inputs.position = encoder.getPosition();
     inputs.velocity = encoder.getVelocity();
-    inputs.voltage = appliedVolts;
+    inputs.voltage = intakeMotor.getAppliedOutput() * intakeMotor.getBusVoltage();
   }
 
   // override your io methods

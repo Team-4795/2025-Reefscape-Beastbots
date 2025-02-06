@@ -21,6 +21,6 @@ public class AlgaeRollerbarIOSim implements AlgaeRollerbarIO {
     intakeMotor.update(0.02);
     inputs.position = intakeMotor.getAngularPositionRad();
     inputs.velocity = intakeMotor.getAngularVelocityRadPerSec();
-    inputs.voltage = appliedVolts;
+    inputs.voltage = intakeMotor.getInputVoltage();
   }
 }
