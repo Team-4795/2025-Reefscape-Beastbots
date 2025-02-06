@@ -21,7 +21,7 @@ public class ClimbIOSim implements ClimbIO {
   @Override
   public void updateInputs(ClimbIOInputs inputs) {
     inputs.velocityRPM = motor.getAngularVelocityRPM();
-    inputs.voltage = appliedVolts;
+    inputs.voltage = motor.getInputVoltage();
     inputs.current = motor.getCurrentDrawAmps();
     motor.update(0.02);
   }
