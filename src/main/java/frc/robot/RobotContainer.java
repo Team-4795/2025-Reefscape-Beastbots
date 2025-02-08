@@ -213,10 +213,10 @@ public class RobotContainer {
         .onTrue(Commands.runOnce(() -> coralRoller.setVoltage(-6), coralRoller));
 
     controller
-        .leftBumper()
+        .leftTrigger()
         .onTrue(Commands.runOnce(() -> algaeRollerbar.setAlgaeRollerVoltage(12)));
     controller
-        .rightBumper()
+        .rightTrigger()
         .onTrue(Commands.runOnce(() -> algaeRollerbar.setAlgaeRollerVoltage(-12)));
   }
 
