@@ -23,6 +23,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+import frc.robot.subsystems.climb.Climb;
+import frc.robot.subsystems.climb.ClimbConstants;
+import frc.robot.subsystems.climb.ClimbIOSim;
 import frc.robot.subsystems.coralrollerbar.CoralRoller;
 import frc.robot.subsystems.coralrollerbar.CoralRollerIOReal;
 import frc.robot.subsystems.coralrollerbar.CoralRollerIOSim;
@@ -158,6 +161,26 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(),
             () -> -controller.getRightX()));
+
+    Climb climb = Climb.init(new ClimbIOSim());
+    controller
+        .povUp()
+        .whileTrue(
+            Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb));
+    controller
+        .povDown()
+        .whileTrue(
+            Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb));
+    controller
+        .x()
+        .onTrue(
+            Commands.sequence(
+                Commands.startEnd(
+                        () -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb)
+                    .withTimeout(4.0),
+                Commands.startEnd(
+                        () -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb)
+                    .withTimeout(4.0)));
 
     // Lock to 0° when A button is held
     controller
