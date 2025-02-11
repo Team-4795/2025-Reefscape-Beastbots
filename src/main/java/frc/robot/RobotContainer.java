@@ -26,9 +26,6 @@ import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.climb.ClimbConstants;
 import frc.robot.subsystems.climb.ClimbIOSim;
-import frc.robot.subsystems.coralrollerbar.CoralRoller;
-import frc.robot.subsystems.coralrollerbar.CoralRollerIOReal;
-import frc.robot.subsystems.coralrollerbar.CoralRollerIOSim;
 import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbar;
 import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbarIOReal;
 import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbarIOSim;
@@ -38,9 +35,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
-import frc.robot.subsystems.pivot.Pivot;
-import frc.robot.subsystems.pivot.PivotIOReal;
-import frc.robot.subsystems.pivot.PivotIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -52,8 +46,6 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-  private final CoralRoller coralRoller;
-  private final Pivot pivot;
   private final AlgaeRollerbar algaeRollerbar;
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -65,8 +57,6 @@ public class RobotContainer {
   public RobotContainer() {
     switch (Constants.currentMode) {
       case REAL:
-        coralRoller = CoralRoller.init(new CoralRollerIOReal());
-        pivot = Pivot.initialize(new PivotIOReal());
         // Real robot, instantiate hardware IO implementations
         drive =
             new Drive(
@@ -80,8 +70,6 @@ public class RobotContainer {
         break;
 
       case SIM:
-        coralRoller = CoralRoller.init(new CoralRollerIOSim());
-        pivot = Pivot.initialize(new PivotIOSim());
         // Sim robot, instantiate physics sim IO implementations
         drive =
             new Drive(
@@ -94,8 +82,6 @@ public class RobotContainer {
         break;
 
       default:
-        coralRoller = CoralRoller.init(new CoralRollerIOSim());
-        pivot = Pivot.initialize(new PivotIOSim());
         // Replayed robot, disable IO implementations
         drive =
             new Drive(
@@ -139,21 +125,6 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    controller
-        .leftTrigger()
-        .whileTrue(
-            Commands.startEnd(
-                () -> pivot.setVoltage(controller.getLeftTriggerAxis() * 12),
-                () -> pivot.setVoltage(0),
-                pivot));
-    controller
-        .rightTrigger()
-        .whileTrue(
-            Commands.startEnd(
-                () -> pivot.setVoltage(controller.getRightTriggerAxis() * -12),
-                () -> pivot.setVoltage(0),
-                pivot));
-
     // Default command, normal field-relative drive
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
@@ -205,12 +176,6 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
-    controller
-        .leftBumper()
-        .onTrue(Commands.runOnce(() -> coralRoller.setVoltage(6), coralRoller));
-    controller
-        .rightBumper()
-        .onTrue(Commands.runOnce(() -> coralRoller.setVoltage(-6), coralRoller));
 
     controller
         .leftTrigger()
