@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.climb.Climb;
 import frc.robot.subsystems.climb.ClimbConstants;
+import frc.robot.subsystems.climb.ClimbIOReal;
 import frc.robot.subsystems.climb.ClimbIOSim;
 import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbar;
 import frc.robot.subsystems.AlgaeRollerbar.AlgaeRollerbarIOReal;
@@ -47,6 +48,8 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive;
   private final AlgaeRollerbar algaeRollerbar;
+  private final Climb climb;
+
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
 
@@ -67,6 +70,8 @@ public class RobotContainer {
                 new ModuleIOSpark(3));
 
         algaeRollerbar = AlgaeRollerbar.initialize(new AlgaeRollerbarIOReal());
+        climb = Climb.init(new ClimbIOReal());
+
         break;
 
       case SIM:
@@ -79,6 +84,7 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim());
         algaeRollerbar = AlgaeRollerbar.initialize(new AlgaeRollerbarIOSim());
+        climb = Climb.init(new ClimbIOSim());
         break;
 
       default:
@@ -91,6 +97,7 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {});
         algaeRollerbar = AlgaeRollerbar.initialize(new AlgaeRollerbarIOSim());
+        climb = Climb.init(new ClimbIOSim());
 
         break;
     }
@@ -133,7 +140,6 @@ public class RobotContainer {
             () -> -controller.getLeftX(),
             () -> -controller.getRightX()));
 
-    Climb climb = Climb.init(new ClimbIOSim());
     controller
         .povUp()
         .whileTrue(
