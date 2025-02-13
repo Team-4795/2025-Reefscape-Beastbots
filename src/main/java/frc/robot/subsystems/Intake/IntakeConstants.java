@@ -1,7 +1,7 @@
-package frc.robot.subsystems.AlgaeRollerbar;
+package frc.robot.subsystems.Intake;
 
-public class AlgaeRollerbarConstants {
-  public static final int DEVICEID = 1;
+public class IntakeConstants {
+  public static final int DEVICEID = 12;
   public static final int STALLLIMIT = 20;
   public static final double VOLTAGE = 1;
   public static final double intake = -0.6;

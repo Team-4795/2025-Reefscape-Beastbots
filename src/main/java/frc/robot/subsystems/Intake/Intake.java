@@ -1,35 +1,35 @@
-package frc.robot.subsystems.AlgaeRollerbar;
+package frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
-public class AlgaeRollerbar extends SubsystemBase {
+public class Intake extends SubsystemBase {
   // createvariable such as Io look at intake.java on mainbot adapt for your rollerbar, periodic
   // method update the sim and make sure your io is setting speed and stuff like that
   // After, go to robot container, initialize subsystem and do button bindings and simulate
-  private AlgaeRollerbarIO io;
+  private IntakeIO io;
   private AlgaeRollerbarIOInputsAutoLogged inputs = new AlgaeRollerbarIOInputsAutoLogged();
   private double Voltage = 0.0;
 
-  private static AlgaeRollerbar instance;
+  private static Intake instance;
 
-  public static AlgaeRollerbar getInstance() {
+  public static Intake getInstance() {
     return instance;
   }
 
-  public static AlgaeRollerbar initialize(AlgaeRollerbarIO io) {
+  public static Intake initialize(IntakeIO io) {
     if (instance == null) {
-      instance = new AlgaeRollerbar(io);
+      instance = new Intake(io);
     }
     return instance;
   }
 
-  public AlgaeRollerbar(AlgaeRollerbarIO io) {
+  public Intake(IntakeIO io) {
     this.io = io;
     io.updateInputs(inputs);
   }
 
-  public void setAlgaeRollerVoltage(double voltage) {
+  public void setIntakeVoltage(double voltage) {
     Voltage = voltage;
     io.setVoltage(voltage);
   }

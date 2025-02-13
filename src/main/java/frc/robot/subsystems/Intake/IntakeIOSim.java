@@ -1,10 +1,10 @@
-package frc.robot.subsystems.AlgaeRollerbar;
+package frc.robot.subsystems.Intake;
 
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
-public class AlgaeRollerbarIOSim implements AlgaeRollerbarIO {
+public class IntakeIOSim implements IntakeIO {
   private double appliedVolts;
   private final DCMotorSim intakeMotor =
       new DCMotorSim(

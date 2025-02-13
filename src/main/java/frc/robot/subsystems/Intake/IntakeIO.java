@@ -1,8 +1,8 @@
-package frc.robot.subsystems.AlgaeRollerbar;
+package frc.robot.subsystems.Intake;
 
 import org.littletonrobotics.junction.AutoLog;
 
-public interface AlgaeRollerbarIO {
+public interface IntakeIO {
   @AutoLog
   // Instructins : make a main class algaerollerbar.java. make algaerollerbario sim
   public class AlgaeRollerbarIOInputs {
