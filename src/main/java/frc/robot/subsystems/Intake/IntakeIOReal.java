@@ -10,7 +10,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class IntakeIOReal implements IntakeIO {
   private final SparkMax intakeMotor =
-      new SparkMax(IntakeConstants.DEVICEID, MotorType.kBrushed); // some numbers ig
+      new SparkMax(IntakeConstants.DEVICEID, MotorType.kBrushless); // some numbers ig
   private final RelativeEncoder encoder = intakeMotor.getEncoder();
   private final SparkMaxConfig config = new SparkMaxConfig();
   private double appliedVolts = 0;

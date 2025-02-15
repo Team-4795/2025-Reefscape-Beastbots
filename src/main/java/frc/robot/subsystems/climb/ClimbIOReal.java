@@ -1,5 +1,7 @@
 package frc.robot.subsystems.climb;
 
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -12,7 +14,8 @@ public class ClimbIOReal implements ClimbIO {
   public ClimbIOReal() {
     Config.smartCurrentLimit(ClimbConstants.currentLimit);
     Config.idleMode(IdleMode.kBrake);
-    ClimbMotor.configure(Config, null, null);
+    ClimbMotor.configure(Config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    ClimbMotor.clearFaults();
   }
 
   @Override

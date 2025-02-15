@@ -38,7 +38,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     io.updateInputs(inputs);
     Logger.processInputs("AlgaeRollerbar", inputs);
-    // io.setVoltage(Voltage);
+    io.setVoltage(Voltage);
     Logger.recordOutput("AlgaeRollerbar/AlgaeRollerbar voltage", Voltage);
   }
 }
