@@ -207,6 +207,18 @@ public class RobotContainer {
                 () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * -2),
                 () -> pivot.setVoltage(0),
                 pivot));
+
+    driverController
+        .y()
+        .onTrue(
+            Commands.runOnce(
+                () -> goProServo.setServoPosition(180)));
+        
+    driverController
+        .x()
+        .onTrue(
+            Commands.runOnce(
+                () -> goProServo.setServoPosition(0)));
   }
 
   /**
