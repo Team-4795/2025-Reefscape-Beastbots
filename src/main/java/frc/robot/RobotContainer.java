@@ -23,12 +23,22 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+import frc.robot.subsystems.Intake.Intake;
+import frc.robot.subsystems.Intake.IntakeIOReal;
+import frc.robot.subsystems.Intake.IntakeIOSim;
+import frc.robot.subsystems.climb.Climb;
+import frc.robot.subsystems.climb.ClimbConstants;
+import frc.robot.subsystems.climb.ClimbIOReal;
+import frc.robot.subsystems.climb.ClimbIOSim;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
-import frc.robot.subsystems.drive.GyroIOPigeon2;
+import frc.robot.subsystems.drive.GyroIORedux;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
+import frc.robot.subsystems.pivot.Pivot;
+import frc.robot.subsystems.pivot.PivotIOReal;
+import frc.robot.subsystems.pivot.PivotIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -40,9 +50,13 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+  private final Intake intake;
+  private final Climb climb;
+  private final Pivot pivot;
 
   // Controller
-  private final CommandXboxController controller = new CommandXboxController(0);
+  private final CommandXboxController driverController = new CommandXboxController(0);
+  private final CommandXboxController operatorController = new CommandXboxController(1);
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -54,11 +68,16 @@ public class RobotContainer {
         // Real robot, instantiate hardware IO implementations
         drive =
             new Drive(
-                new GyroIOPigeon2(),
+                new GyroIORedux(),
                 new ModuleIOSpark(0),
                 new ModuleIOSpark(1),
                 new ModuleIOSpark(2),
                 new ModuleIOSpark(3));
+
+        intake = Intake.initialize(new IntakeIOReal());
+        climb = Climb.init(new ClimbIOReal());
+        pivot = Pivot.initialize(new PivotIOReal());
+
         break;
 
       case SIM:
@@ -70,6 +89,9 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim());
+        intake = Intake.initialize(new IntakeIOSim());
+        climb = Climb.init(new ClimbIOSim());
+        pivot = Pivot.initialize(new PivotIOSim());
         break;
 
       default:
@@ -81,6 +103,9 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
+        intake = Intake.initialize(new IntakeIOSim());
+        climb = Climb.init(new ClimbIOSim());
+        pivot = Pivot.initialize(new PivotIOSim());
         break;
     }
 
@@ -118,25 +143,36 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
             drive,
-            () -> -controller.getLeftY(),
-            () -> -controller.getLeftX(),
-            () -> -controller.getRightX()));
+            () -> driverController.getLeftY() * 0.8,
+            () -> driverController.getLeftX() * 0.8,
+            () -> driverController.getRightX() * -0.75));
+
+    driverController.y().onTrue(Commands.runOnce(drive::zeroHeading, drive));
+
+    operatorController
+        .rightBumper()
+        .whileTrue(
+            Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb));
+    operatorController
+        .leftBumper()
+        .whileTrue(
+            Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb));
 
     // Lock to 0° when A button is held
-    controller
+    driverController
         .a()
         .whileTrue(
             DriveCommands.joystickDriveAtAngle(
                 drive,
-                () -> -controller.getLeftY(),
-                () -> -controller.getLeftX(),
+                () -> -driverController.getLeftY(),
+                () -> -driverController.getLeftX(),
                 () -> new Rotation2d()));
 
     // Switch to X pattern when X button is pressed
-    controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    driverController.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
     // Reset gyro to 0° when B button is pressed
-    controller
+    driverController
         .b()
         .onTrue(
             Commands.runOnce(
@@ -145,6 +181,32 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
+
+    operatorController
+        .b()
+        .whileTrue(
+            Commands.startEnd(() -> intake.setIntakeVoltage(3), () -> intake.setIntakeVoltage(0)));
+
+    operatorController
+        .a()
+        .whileTrue(
+            Commands.startEnd(() -> intake.setIntakeVoltage(-3), () -> intake.setIntakeVoltage(0)));
+
+    operatorController
+        .rightTrigger()
+        .whileTrue(
+            Commands.startEnd(
+                () -> pivot.setVoltage(operatorController.getRightTriggerAxis() * 2),
+                () -> pivot.setVoltage(0),
+                pivot));
+
+    operatorController
+        .leftTrigger()
+        .whileTrue(
+            Commands.startEnd(
+                () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * -2),
+                () -> pivot.setVoltage(0),
+                pivot));
   }
 
   /**
