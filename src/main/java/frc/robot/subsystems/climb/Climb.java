@@ -1,6 +1,5 @@
 package frc.robot.subsystems.climb;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
@@ -8,7 +7,7 @@ public class Climb extends SubsystemBase {
   private ClimbIO io;
   private final ClimbIOInputsAutoLogged inputs = new ClimbIOInputsAutoLogged();
 
-  private double velocity = 0.0;
+  private double appliedVolts = 0.0;
   private static Climb instance;
 
   private Climb(ClimbIO io) {
@@ -18,10 +17,12 @@ public class Climb extends SubsystemBase {
 
   public void setVoltage(double volts) {
     io.setClimbVoltage(volts);
+    appliedVolts = volts;
   }
 
   public void stop() {
     io.setClimbVoltage(0);
+    appliedVolts = 0;
   }
 
   public static Climb getInstance() {
@@ -35,9 +36,9 @@ public class Climb extends SubsystemBase {
     return instance;
   }
 
-  public void setVelocity(double v) {
-    this.velocity = v;
-  }
+  // public void setVelocity(double v) {
+  //   this.velocity = v;
+  // }
 
   public double getVelocity() {
     return inputs.velocityRPM;
@@ -55,6 +56,6 @@ public class Climb extends SubsystemBase {
   public void periodic() {
     io.updateInputs(inputs);
     Logger.processInputs("climb", inputs);
-    io.setClimbVoltage(MathUtil.clamp(velocity * 12, -12, 12));
+    io.setClimbVoltage(appliedVolts);
   }
 }

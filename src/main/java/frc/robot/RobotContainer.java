@@ -36,7 +36,6 @@ import frc.robot.subsystems.drive.GyroIORedux;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
-import frc.robot.subsystems.goProServo.goProServo;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotIOReal;
 import frc.robot.subsystems.pivot.PivotIOSim;
@@ -144,28 +143,20 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
             drive,
-            () -> -driverController.getLeftY(),
-            () -> -driverController.getLeftX(),
-            () -> -driverController.getRightX()));
+            () -> driverController.getLeftY() * 0.8,
+            () -> driverController.getLeftX() * 0.8,
+            () -> driverController.getRightX() * -0.75));
+
+    driverController.y().onTrue(Commands.runOnce(drive::zeroHeading, drive));
 
     operatorController
-        .povUp()
+        .rightBumper()
         .whileTrue(
             Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb));
     operatorController
-        .povDown()
+        .leftBumper()
         .whileTrue(
             Commands.startEnd(() -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb));
-    operatorController
-        .x()
-        .onTrue(
-            Commands.sequence(
-                Commands.startEnd(
-                        () -> climb.setVoltage(ClimbConstants.ReverseV), climb::stop, climb)
-                    .withTimeout(4.0),
-                Commands.startEnd(
-                        () -> climb.setVoltage(ClimbConstants.ForwardV), climb::stop, climb)
-                    .withTimeout(4.0)));
 
     // Lock to 0° when A button is held
     driverController
@@ -194,36 +185,28 @@ public class RobotContainer {
     operatorController
         .b()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(6), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(() -> intake.setIntakeVoltage(3), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .a()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(-6), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(() -> intake.setIntakeVoltage(-3), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .rightTrigger()
         .whileTrue(
-            Commands.run(
-                () -> pivot.setVoltage(operatorController.getRightTriggerAxis() * 4), pivot));
+            Commands.startEnd(
+                () -> pivot.setVoltage(operatorController.getRightTriggerAxis() * 2),
+                () -> pivot.setVoltage(0),
+                pivot));
 
     operatorController
         .leftTrigger()
         .whileTrue(
-            Commands.run(
-                () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * 4), pivot));
-    
-    driverController
-        .y()
-        .onTrue(
-            Commands.runOnce(
-                () -> goProServo.setServoPosition(180)));
-    
-    driverController
-        .x()
-        .onTrue(
-            Commands.run(
-                () -> goProServo.setServoPosition(0)));
+            Commands.startEnd(
+                () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * -2),
+                () -> pivot.setVoltage(0),
+                pivot));
   }
 
   /**
