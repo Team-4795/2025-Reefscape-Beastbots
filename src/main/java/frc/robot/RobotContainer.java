@@ -36,6 +36,7 @@ import frc.robot.subsystems.drive.GyroIORedux;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
+import frc.robot.subsystems.goProServo.goProServo;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotIOReal;
 import frc.robot.subsystems.pivot.PivotIOSim;
@@ -211,6 +212,18 @@ public class RobotContainer {
         .whileTrue(
             Commands.run(
                 () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * 4), pivot));
+    
+    driverController
+        .y()
+        .onTrue(
+            Commands.runOnce(
+                () -> goProServo.setServoPosition(180)));
+    
+    driverController
+        .x()
+        .onTrue(
+            Commands.run(
+                () -> goProServo.setServoPosition(0)));
   }
 
   /**
