@@ -36,6 +36,7 @@ import frc.robot.subsystems.drive.GyroIORedux;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
+import frc.robot.subsystems.goProServo.goProServo;
 import frc.robot.subsystems.pivot.Pivot;
 import frc.robot.subsystems.pivot.PivotIOReal;
 import frc.robot.subsystems.pivot.PivotIOSim;
@@ -53,6 +54,7 @@ public class RobotContainer {
   private final Intake intake;
   private final Climb climb;
   private final Pivot pivot;
+  private final goProServo goProServo = new goProServo();
 
   // Controller
   private final CommandXboxController driverController = new CommandXboxController(0);
@@ -77,7 +79,6 @@ public class RobotContainer {
         intake = Intake.initialize(new IntakeIOReal());
         climb = Climb.init(new ClimbIOReal());
         pivot = Pivot.initialize(new PivotIOReal());
-
         break;
 
       case SIM:
@@ -213,7 +214,7 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> goProServo.setServoPosition(180)));
-        
+
     driverController
         .x()
         .onTrue(
