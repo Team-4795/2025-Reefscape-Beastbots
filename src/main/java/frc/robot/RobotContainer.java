@@ -193,12 +193,12 @@ public class RobotContainer {
     operatorController
         .b()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(6), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(() -> intake.setIntakeVoltage(4), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .a()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(-6), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(() -> intake.setIntakeVoltage(-4), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .rightTrigger()
