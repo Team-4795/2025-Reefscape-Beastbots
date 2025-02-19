@@ -13,6 +13,17 @@ public interface PivotIO {
   public default void setVoltage(double voltage) {}
   ;
 
+  public default void setGoal(double angle) {}
+  ;
+
   public default void updateInputs(PivotIOInputs inputs) {}
+  ;
+
+  public default void updateMotionProfile() {}
+  ;
+
+  public default double getPosition() {
+    return 0;
+  }
   ;
 }
