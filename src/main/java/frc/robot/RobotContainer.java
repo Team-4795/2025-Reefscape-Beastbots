@@ -14,6 +14,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.commands.AutoCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Intake.IntakeIOReal;
@@ -109,6 +111,11 @@ public class RobotContainer {
         break;
     }
 
+    NamedCommands.registerCommand("outtake", AutoCommands.intake(-1.0 / 12.0));
+    NamedCommands.registerCommand("zero", AutoCommands.intake(0));
+    NamedCommands.registerCommand("intake", AutoCommands.intake(1.0 / 12.0));
+    NamedCommands.registerCommand("pivot", AutoCommands.pivot(-1.0 / 12.0));
+
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
@@ -185,10 +192,14 @@ public class RobotContainer {
     operatorController
         .b()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(3), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(() -> intake.setIntakeVoltage(1), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .a()
+        .whileTrue(
+            Commands.startEnd(() -> intake.setIntakeVoltage(-1), () -> intake.setIntakeVoltage(0)));
+    operatorController
+        .x()
         .whileTrue(
             Commands.startEnd(() -> intake.setIntakeVoltage(-3), () -> intake.setIntakeVoltage(0)));
 

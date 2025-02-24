@@ -5,33 +5,27 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "toTakingAlgaePath1"
           }
         },
         {
-          "type": "path",
+          "type": "wait",
           "data": {
-            "pathName": "toTakingAlgaePath2"
+            "waitTime": 0.5
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "toTakingAlgaePath3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "toTakingAlgaePath4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "toTakingAlgaePath5"
+            "name": "outtake"
           }
         }
       ]
