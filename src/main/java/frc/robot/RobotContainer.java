@@ -111,7 +111,7 @@ public class RobotContainer {
         break;
     }
 
-    NamedCommands.registerCommand("outtake", AutoCommands.intake(-1.0 / 12.0));
+    NamedCommands.registerCommand("outtake", AutoCommands.intake(-0.9 / 12));
     NamedCommands.registerCommand("zero", AutoCommands.intake(0));
     NamedCommands.registerCommand("intake", AutoCommands.intake(1.0 / 12.0));
     NamedCommands.registerCommand("pivot", AutoCommands.pivot(-1.0 / 12.0));
@@ -192,16 +192,19 @@ public class RobotContainer {
     operatorController
         .b()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(1), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(
+                () -> intake.setIntakeVoltage(0.9), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .a()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(-1), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(
+                () -> intake.setIntakeVoltage(-0.9), () -> intake.setIntakeVoltage(0)));
     operatorController
         .x()
         .whileTrue(
-            Commands.startEnd(() -> intake.setIntakeVoltage(-3), () -> intake.setIntakeVoltage(0)));
+            Commands.startEnd(
+                () -> intake.setIntakeVoltage(-5.5), () -> intake.setIntakeVoltage(0)));
 
     operatorController
         .rightTrigger()
