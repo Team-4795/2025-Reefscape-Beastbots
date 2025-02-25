@@ -31,16 +31,21 @@ public class GyroIORedux implements GyroIO {
   }
 
   @Override
+  public void zeroHeading() {
+    navX.setYaw(0);
+  }
+
+  @Override
   public void updateInputs(GyroIOInputs inputs) {
     inputs.connected = navX.isConnected();
-    inputs.yawPosition = Rotation2d.fromDegrees(-navX.getYaw());
+    inputs.yawPosition = Rotation2d.fromRadians(-navX.getYaw() * 2 * Math.PI);
     inputs.yawVelocityRadPerSec = Units.degreesToRadians(-navX.getAngularVelocityYaw());
 
     inputs.odometryYawTimestamps =
         yawTimestampQueue.stream().mapToDouble((Double value) -> value).toArray();
     inputs.odometryYawPositions =
         yawPositionQueue.stream()
-            .map((Double value) -> Rotation2d.fromDegrees(-value))
+            .map((Double value) -> Rotation2d.fromRadians(value * 2 * Math.PI))
             .toArray(Rotation2d[]::new);
     yawTimestampQueue.clear();
     yawPositionQueue.clear();
