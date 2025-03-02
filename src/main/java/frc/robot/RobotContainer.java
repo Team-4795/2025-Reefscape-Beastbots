@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.Intake.Intake;
@@ -155,6 +156,11 @@ public class RobotContainer {
             () -> driverController.getRightX() * -0.75));
 
     driverController.y().onTrue(Commands.runOnce(drive::zeroHeading, drive));
+
+    driverController.povRight().and(driverController.y()).whileTrue(drive.sysIdDynamic(Direction.kForward));
+    driverController.povRight().and(driverController.x()).whileTrue(drive.sysIdDynamic(Direction.kReverse));
+    driverController.povLeft().and(driverController.y()).whileTrue(drive.sysIdQuasistatic(Direction.kForward));
+    driverController.povLeft().and(driverController.x()).whileTrue(drive.sysIdQuasistatic(Direction.kReverse));
 
     operatorController
         .rightBumper()
