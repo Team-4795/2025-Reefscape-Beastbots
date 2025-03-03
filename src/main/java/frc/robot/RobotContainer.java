@@ -22,8 +22,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.AutoCommands;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.Intake.Intake;
@@ -112,30 +110,13 @@ public class RobotContainer {
         break;
     }
 
-    NamedCommands.registerCommand("outtake", AutoCommands.intake(-0.9 / 12));
+    NamedCommands.registerCommand("outtake", AutoCommands.intake(-2.0 / 12));
     NamedCommands.registerCommand("zero", AutoCommands.intake(0));
     NamedCommands.registerCommand("intake", AutoCommands.intake(1.0 / 12.0));
     NamedCommands.registerCommand("pivot", AutoCommands.pivot(-1.0 / 12.0));
 
     // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
-
-    // Set up SysId routines
-    autoChooser.addOption(
-        "Drive Wheel Radius Characterization", DriveCommands.wheelRadiusCharacterization(drive));
-    autoChooser.addOption(
-        "Drive Simple FF Characterization", DriveCommands.feedforwardCharacterization(drive));
-    autoChooser.addOption(
-        "Drive SysId (Quasistatic Forward)",
-        drive.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
-    autoChooser.addOption(
-        "Drive SysId (Quasistatic Reverse)",
-        drive.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
-    autoChooser.addOption(
-        "Drive SysId (Dynamic Forward)", drive.sysIdDynamic(SysIdRoutine.Direction.kForward));
-    autoChooser.addOption(
-        "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
-
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -156,11 +137,6 @@ public class RobotContainer {
             () -> driverController.getRightX() * -0.75));
 
     driverController.y().onTrue(Commands.runOnce(drive::zeroHeading, drive));
-
-    driverController.povRight().and(driverController.y()).whileTrue(drive.sysIdDynamic(Direction.kForward));
-    driverController.povRight().and(driverController.x()).whileTrue(drive.sysIdDynamic(Direction.kReverse));
-    driverController.povLeft().and(driverController.y()).whileTrue(drive.sysIdQuasistatic(Direction.kForward));
-    driverController.povLeft().and(driverController.x()).whileTrue(drive.sysIdQuasistatic(Direction.kReverse));
 
     operatorController
         .rightBumper()
@@ -211,6 +187,12 @@ public class RobotContainer {
         .whileTrue(
             Commands.startEnd(
                 () -> intake.setIntakeVoltage(-5.5), () -> intake.setIntakeVoltage(0)));
+
+    operatorController
+        .y()
+        .whileTrue(
+            Commands.startEnd(
+                () -> intake.setIntakeVoltage(-2.5), () -> intake.setIntakeVoltage(0), intake));
 
     operatorController
         .rightTrigger()
