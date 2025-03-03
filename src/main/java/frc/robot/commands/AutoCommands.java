@@ -12,10 +12,16 @@ public class AutoCommands {
   private static final Intake intake = Intake.getInstance();
 
   public static Command intake(double speed) {
-    return Commands.runOnce(() -> intake.setIntakeVoltage(speed * 12), intake);
+
+    return Commands.sequence(Commands.run(()-> intake.setIntakeVoltage(speed*12)),
+    Commands.waitSeconds(5),
+    Commands.run(()-> intake.setIntakeVoltage(0)));
   }
 
   public static Command pivot(double speed) {
-    return Commands.runOnce(() -> pivot.setVoltage(speed * 12), pivot);
+      return Commands.sequence(Commands.run(() -> pivot.setVoltage(speed * 12)),
+       Commands.waitSeconds(5),
+       Commands.run(() -> pivot.setVoltage(0)));
   }
+
 }
