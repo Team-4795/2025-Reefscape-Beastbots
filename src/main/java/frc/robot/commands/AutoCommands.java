@@ -13,15 +13,13 @@ public class AutoCommands {
 
   public static Command intake(double speed) {
 
-    return Commands.sequence(Commands.run(()-> intake.setIntakeVoltage(speed*12)),
-    Commands.waitSeconds(5),
-    Commands.run(()-> intake.setIntakeVoltage(0)));
+    return Commands.sequence(
+        Commands.runOnce(() -> intake.setIntakeVoltage(speed * 12), intake),
+        Commands.waitSeconds(2),
+        Commands.runOnce(() -> intake.setIntakeVoltage(0), intake));
   }
 
   public static Command pivot(double speed) {
-      return Commands.sequence(Commands.run(() -> pivot.setVoltage(speed * 12)),
-       Commands.waitSeconds(5),
-       Commands.run(() -> pivot.setVoltage(0)));
+    return Commands.sequence(Commands.runOnce(() -> pivot.setVoltage(speed * 12), pivot));
   }
-
 }
