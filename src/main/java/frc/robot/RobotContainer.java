@@ -114,10 +114,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("zero", AutoCommands.intake(0));
     NamedCommands.registerCommand("intake", AutoCommands.intake(1.0 / 12.0));
     NamedCommands.registerCommand("pivot", AutoCommands.pivot(-1.0 / 12.0));
-    
-    
 
-    // Set up auto routinesintake
+    // Set up auto routines
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
     // Configure the button bindings
     configureButtonBindings();

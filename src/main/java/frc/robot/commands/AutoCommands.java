@@ -5,12 +5,14 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Intake.Intake;
 import frc.robot.subsystems.Intake.IntakeIOSim;
 import frc.robot.subsystems.climb.Climb;
+import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.pivot.Pivot;
 
 public class AutoCommands {
   private static final Climb climb = Climb.getInstance();
   private static final Pivot pivot = Pivot.getInstance();
   private static final Intake intake = Intake.getInstance();
+
   public static Command intake(double speed) {
 
     return Commands.sequence(
