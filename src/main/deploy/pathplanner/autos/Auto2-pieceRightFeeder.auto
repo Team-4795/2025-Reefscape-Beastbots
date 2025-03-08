@@ -5,6 +5,66 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "2-pieceRightFeederPath"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "outtake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toLFeederPath2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zero"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LFeederPath3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "outtake"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "pivot"
@@ -13,43 +73,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "toRFeederPath1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "outtake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "toRFeederPath2"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 3.0
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "toRFeederPath3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "outtake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "toRFeederPath4"
+            "pathName": "toLFeederPath4"
           }
         }
       ]

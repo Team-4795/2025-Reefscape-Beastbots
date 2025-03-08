@@ -5,9 +5,15 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "toLFeederPath1"
+            "pathName": "toRFeederPath1"
           }
         },
         {
@@ -17,45 +23,45 @@
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.3
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "intake"
+            "name": "pivot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "toLFeederPath2"
+            "pathName": "toRFeederPath2"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "zero"
+            "waitTime": 3.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "LFeederPath3"
+            "pathName": "toRFeederPath3"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "outtake"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toRFeederPath4"
           }
         }
       ]

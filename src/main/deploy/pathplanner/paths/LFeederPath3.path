@@ -45,7 +45,7 @@
     "rotation": 58.23845020527542
   },
   "reversed": false,
-  "folder": null,
+  "folder": "AutoLeftFeederPaths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -125.08584187367327

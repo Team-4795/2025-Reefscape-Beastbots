@@ -20,8 +20,8 @@
         "y": 7.06546052631579
       },
       "prevControl": {
-        "x": 2.899583001062762,
-        "y": 6.262493354603734
+        "x": 0.769736842105263,
+        "y": 4.929440789473684
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 127.32773276170346
   },
   "reversed": false,
-  "folder": null,
+  "folder": "AutoRightFeederPaths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -58.706961004079794

@@ -114,6 +114,8 @@ public class RobotContainer {
     NamedCommands.registerCommand("zero", AutoCommands.intake(0));
     NamedCommands.registerCommand("intake", AutoCommands.intake(1.0 / 12.0));
     NamedCommands.registerCommand("pivot", AutoCommands.pivot(-1.0 / 12.0));
+    
+    
 
     // Set up auto routinesintake
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
@@ -209,10 +211,17 @@ public class RobotContainer {
                 () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * -2),
                 () -> pivot.setVoltage(0),
                 pivot));
+
+    operatorController
+        .povUp()
+        .whileTrue(
+            Commands.sequence(
+            AutoCommands.outtake(1.0/12.0, 1.0/12.0), AutoCommands.intake(0), AutoCommands.pivot(1.0/12.0)));
+    
   }
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
+  
+   /* Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */

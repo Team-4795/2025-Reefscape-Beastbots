@@ -45,7 +45,7 @@
     "rotation": 124.82448915695687
   },
   "reversed": false,
-  "folder": null,
+  "folder": "AutoAlgaefromReefPaths",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0
