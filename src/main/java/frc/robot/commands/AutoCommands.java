@@ -3,9 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.Intake.Intake;
-import frc.robot.subsystems.Intake.IntakeIOSim;
 import frc.robot.subsystems.climb.Climb;
-import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.pivot.Pivot;
 
 public class AutoCommands {
@@ -25,11 +23,12 @@ public class AutoCommands {
     return Commands.sequence(Commands.runOnce(() -> pivot.setVoltage(speed * 12), pivot));
   }
 
-  public static Command outtake(double Intakespeed, double Pivotspeed ){
+  public static Command outtake(double Intakespeed, double Pivotspeed) {
     return Commands.sequence(
-    Commands.runOnce(()-> intake.setIntakeVoltage(Intakespeed*12), intake),
-    Commands.waitSeconds(0.3), 
-    Commands.runOnce(() -> pivot.setVoltage(Pivotspeed * 12)));
-
+        Commands.runOnce(() -> intake.setIntakeVoltage(Intakespeed * 12.0), intake),
+        Commands.waitSeconds(0.2),
+        Commands.runOnce(() -> pivot.setVoltage(Pivotspeed * 12.0)),
+        Commands.waitSeconds(1),
+        Commands.runOnce(() -> intake.setIntakeVoltage(0)));
   }
 }

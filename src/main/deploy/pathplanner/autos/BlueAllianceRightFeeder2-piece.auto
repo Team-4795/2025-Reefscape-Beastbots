@@ -5,51 +5,75 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "pivot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "toRFeederPath1"
+            "pathName": "2-pieceRightFeederPath1"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "outtake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "pivot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "toRFeederPath2"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 1.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "pivot"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "toRFeederPath3"
+            "pathName": "toRrFeederPath2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "intake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 2.0
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zero"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "toRrFeederPath3"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "outtake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 1.0
           }
         },
         {
@@ -61,7 +85,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "toRFeederPath4"
+            "pathName": "toRrFeederPath4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "zero"
           }
         }
       ]

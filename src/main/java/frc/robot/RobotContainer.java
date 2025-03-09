@@ -110,7 +110,7 @@ public class RobotContainer {
         break;
     }
 
-    NamedCommands.registerCommand("outtake", AutoCommands.intake(-2.0 / 12));
+    NamedCommands.registerCommand("outtake", AutoCommands.outtake(-1.5 / 12.0, 1.50 / 12.0));
     NamedCommands.registerCommand("zero", AutoCommands.intake(0));
     NamedCommands.registerCommand("intake", AutoCommands.intake(1.0 / 12.0));
     NamedCommands.registerCommand("pivot", AutoCommands.pivot(-1.0 / 12.0));
@@ -132,8 +132,8 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(
             drive,
-            () -> driverController.getLeftY() * 0.8,
-            () -> driverController.getLeftX() * 0.8,
+            () -> driverController.getLeftY() * -0.8,
+            () -> driverController.getLeftX() * -0.8,
             () -> driverController.getRightX() * -0.75));
 
     driverController.y().onTrue(Commands.runOnce(drive::zeroHeading, drive));
@@ -192,7 +192,7 @@ public class RobotContainer {
         .y()
         .whileTrue(
             Commands.startEnd(
-                () -> intake.setIntakeVoltage(-2.5), () -> intake.setIntakeVoltage(0), intake));
+                () -> intake.setIntakeVoltage(-1.65), () -> intake.setIntakeVoltage(0), intake));
 
     operatorController
         .rightTrigger()
@@ -214,12 +214,12 @@ public class RobotContainer {
         .povUp()
         .whileTrue(
             Commands.sequence(
-            AutoCommands.outtake(1.0/12.0, 1.0/12.0), AutoCommands.intake(0), AutoCommands.pivot(1.0/12.0)));
-    
+                AutoCommands.outtake(-2.4 / 12.0, 1.50 / 12.0),
+                AutoCommands.intake(0),
+                AutoCommands.pivot(1.50 / 12.0)));
   }
 
-  
-   /* Use this to pass the autonomous command to the main {@link Robot} class.
+  /* Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
