@@ -5,15 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "pivot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "RedAlliancePath1"
+            "pathName": "RedAllianceRightFeeder1"
           }
         },
         {
@@ -23,51 +17,27 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "pivot"
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "RedAlliancePath2"
+            "pathName": "RedAllianceRightFeeder2"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 2.0
+            "waitTime": 2.5
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RedAlliancePath3"
+            "pathName": "RedAllianceRightFeeder3"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "outtake"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "pivot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RedAlliancePath4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "intake"
           }
         }
       ]

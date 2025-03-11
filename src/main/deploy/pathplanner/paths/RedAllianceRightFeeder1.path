@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.086960227272726,
-        "y": 3.7806960227272723
+        "x": 10.362582236842105,
+        "y": 7.546546052631578
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.79013817240818,
-        "y": 3.8696302307003676
+        "x": 11.162950313570951,
+        "y": 6.6186333830666415
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.441647727272727,
-        "y": 3.9003551136363637
+        "x": 11.449835526315107,
+        "y": 6.411184210530916
       },
       "prevControl": {
-        "x": 7.732201550758492,
-        "y": 3.8013499587599844
+        "x": 10.969099362584995,
+        "y": 6.9491782015625745
+      },
+      "nextControl": {
+        "x": 12.192459982370627,
+        "y": 5.580109860203237
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 12.46,
+        "y": 5.064144736845322
+      },
+      "prevControl": {
+        "x": 12.580824042012424,
+        "y": 4.819271833666097
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 173.54118362128133
+    "rotation": -63.43494882292201
   },
   "reversed": false,
-  "folder": null,
+  "folder": "RedAllianceRightFeederPaths",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 178.60281897270366
+    "rotation": 0.48554583000810403
   },
   "useDefaultConstraints": true
 }
