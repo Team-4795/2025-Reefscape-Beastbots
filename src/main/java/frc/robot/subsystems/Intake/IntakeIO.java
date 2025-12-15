@@ -4,16 +4,9 @@ import org.littletonrobotics.junction.AutoLog;
 
 public interface IntakeIO {
   @AutoLog
-  // Instructins : make a main class algaerollerbar.java. make algaerollerbario sim
   public class AlgaeRollerbarIOInputs {
-    public double position = 0;
-    public double voltage = 0;
-    public double velocity = 0;
+    //what values do we want to log?
   }
 
-  public default void setVoltage(double voltage) {}
-
-  // you need to make a class inside your interface
-  // update inputs, and a setvoltage
-  public default void updateInputs(AlgaeRollerbarIOInputs inputs) {}
+ //make a set voltage and update inputs that will later be overriden. 
 }

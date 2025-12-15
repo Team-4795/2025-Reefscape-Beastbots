@@ -9,32 +9,15 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class IntakeIOReal implements IntakeIO {
-  private final SparkMax intakeMotor =
-      new SparkMax(IntakeConstants.DEVICEID, MotorType.kBrushless); // some numbers ig
-  private final RelativeEncoder encoder = intakeMotor.getEncoder();
-  private final SparkMaxConfig config = new SparkMaxConfig();
-  private double appliedVolts = 0;
+  //initialize a spark max motor and call it intakeMotor
+  //make a relative encoder by acessing the relative encoder inside the sparkmax
+  //make a sparkmax configurator
+  private double appliedVolts = 0; //you'll use this to update your logged voltage value
 
   public IntakeIOReal() {
-    config.idleMode(IdleMode.kCoast);
-    config.smartCurrentLimit(IntakeConstants.STALLLIMIT);
-    intakeMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    intakeMotor.clearFaults();
+    //set current limit and set motor to coast mode
+    //intakeMotor.clearFaults(); uncomment this later
   }
-
-  @Override
-  public void setVoltage(double voltage) {
-    appliedVolts = voltage;
-    intakeMotor.setVoltage(voltage);
-  }
-
-  @Override
-  public void updateInputs(AlgaeRollerbarIOInputs inputs) {
-    inputs.position = encoder.getPosition();
-    inputs.velocity = encoder.getVelocity();
-    inputs.voltage = intakeMotor.getAppliedOutput() * intakeMotor.getBusVoltage();
-  }
-
-  // override your io methods
+  // override your io methods and fill them in properly
 
 }

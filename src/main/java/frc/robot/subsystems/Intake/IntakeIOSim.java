@@ -5,22 +5,10 @@ import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
 public class IntakeIOSim implements IntakeIO {
-  private double appliedVolts;
+  private double appliedVolts; //you'll use this to update voltage value
   private final DCMotorSim intakeMotor =
       new DCMotorSim(
           LinearSystemId.createDCMotorSystem(DCMotor.getNEO(1), 0.5, 1), DCMotor.getNEO(1), 0, 0);
 
-  @Override
-  public void setVoltage(double voltage) {
-    appliedVolts = voltage;
-    intakeMotor.setInputVoltage(voltage);
-  }
-
-  @Override
-  public void updateInputs(AlgaeRollerbarIOInputs inputs) {
-    intakeMotor.update(0.02);
-    inputs.position = intakeMotor.getAngularPositionRad();
-    inputs.velocity = intakeMotor.getAngularVelocityRadPerSec();
-    inputs.voltage = intakeMotor.getInputVoltage();
-  }
+  //implement the io methods you made, note that you'll need to use the .update method in your simulated motor to do anything
 }

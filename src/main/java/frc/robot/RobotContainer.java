@@ -138,6 +138,7 @@ public class RobotContainer {
 
     driverController.y().onTrue(Commands.runOnce(drive::zeroHeading, drive));
 
+    //example of climb buttons
     operatorController
         .rightBumper()
         .whileTrue(
@@ -171,45 +172,11 @@ public class RobotContainer {
                     drive)
                 .ignoringDisable(true));
 
-    operatorController
-        .b()
-        .whileTrue(
-            Commands.startEnd(
-                () -> intake.setIntakeVoltage(0.9), () -> intake.setIntakeVoltage(0)));
+//Make buttons for intake here
 
-    operatorController
-        .a()
-        .whileTrue(
-            Commands.startEnd(
-                () -> intake.setIntakeVoltage(-0.9), () -> intake.setIntakeVoltage(0)));
-    operatorController
-        .x()
-        .whileTrue(
-            Commands.startEnd(
-                () -> intake.setIntakeVoltage(-5.5), () -> intake.setIntakeVoltage(0)));
+//make buttons for pivot here
 
-    operatorController
-        .y()
-        .whileTrue(
-            Commands.startEnd(
-                () -> intake.setIntakeVoltage(-1.65), () -> intake.setIntakeVoltage(0), intake));
-
-    operatorController
-        .rightTrigger()
-        .whileTrue(
-            Commands.startEnd(
-                () -> pivot.setVoltage(operatorController.getRightTriggerAxis() * 2),
-                () -> pivot.setVoltage(0),
-                pivot));
-
-    operatorController
-        .leftTrigger()
-        .whileTrue(
-            Commands.startEnd(
-                () -> pivot.setVoltage(operatorController.getLeftTriggerAxis() * -2),
-                () -> pivot.setVoltage(0),
-                pivot));
-
+//example of sequence of commands
     operatorController
         .povUp()
         .whileTrue(

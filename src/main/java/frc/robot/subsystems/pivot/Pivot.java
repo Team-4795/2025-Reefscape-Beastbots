@@ -20,20 +20,17 @@ public class Pivot extends SubsystemBase {
 
   public static Pivot initialize(PivotIO something) {
     if (instance == null) {
-      instance = new Pivot(something);
+      //what do we do if instance is null
     }
     return instance;
   }
 
   public void setVoltage(double volts) {
-    io.setVoltage(volts);
-    voltage = volts;
+    //fill in set voltage method
   }
 
   @Override
   public void periodic() {
-    io.updateInputs(inputs);
-    Logger.processInputs("Pivot", inputs);
-    io.setVoltage(voltage);
+    //fill in the periodic with the proper code to do logging
   }
 }

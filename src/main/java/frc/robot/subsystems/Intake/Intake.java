@@ -4,41 +4,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
-  // createvariable such as Io look at intake.java on mainbot adapt for your rollerbar, periodic
-  // method update the sim and make sure your io is setting speed and stuff like that
-  // After, go to robot container, initialize subsystem and do button bindings and simulate
-  private IntakeIO io;
-  private AlgaeRollerbarIOInputsAutoLogged inputs = new AlgaeRollerbarIOInputsAutoLogged();
-  private double Voltage = 0.0;
+  //create io object called io, instance, autologged class
 
-  private static Intake instance;
+  double Voltage; 
 
+  //fill in get instance
   public static Intake getInstance() {
-    return instance;
+    return null;
   }
 
+  //fill in the intialize method
   public static Intake initialize(IntakeIO io) {
-    if (instance == null) {
-      instance = new Intake(io);
-    }
-    return instance;
+    return null; 
   }
 
+  //fill in the constructor
   public Intake(IntakeIO io) {
-    this.io = io;
-    io.updateInputs(inputs);
   }
 
+  //use the method in io you made for setting voltage here + update the double in this class that stores voltage
   public void setIntakeVoltage(double voltage) {
-    Voltage = voltage;
-    io.setVoltage(voltage);
   }
 
   @Override
   public void periodic() {
-    io.updateInputs(inputs);
-    Logger.processInputs("AlgaeRollerbar", inputs);
-    io.setVoltage(Voltage);
-    Logger.recordOutput("AlgaeRollerbar/AlgaeRollerbar voltage", Voltage);
+    //what do we want to run periodically 
   }
 }

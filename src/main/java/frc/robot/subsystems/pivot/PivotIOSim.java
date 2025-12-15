@@ -19,15 +19,12 @@ public class PivotIOSim implements PivotIO {
 
   @Override
   public void setVoltage(double voltage) {
-    pivotMotorSim.setInputVoltage(voltage);
-    aaaaa = voltage;
+    //properly overide the set voltage method
   }
 
   @Override
   public void updateInputs(PivotIOInputs inputs) {
     pivotMotorSim.update(0.02);
-    inputs.voltage = aaaaa;
-    inputs.velocity = pivotMotorSim.getVelocityRadPerSec();
-    inputs.position = pivotMotorSim.getAngleRads();
+    //update the logged values with data from simulator
   }
 }
